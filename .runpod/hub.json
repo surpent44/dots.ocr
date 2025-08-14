@@ -1,0 +1,172 @@
+{
+  "title": "DotsOCR - Multilingual Document Parser",
+  "description": "A unified vision-language model for document layout detection and content recognition with state-of-the-art performance",
+  "type": "serverless",
+  "category": "image",
+  "iconUrl": "https://raw.githubusercontent.com/ucaslcl/dots.ocr/main/assets/logo.png",
+
+  "config": {
+    "runsOn": "GPU",
+    "containerDiskInGb": 30,
+
+    "gpuCount": 1,
+    "gpuIds": "RTX A4000,RTX A5000,RTX A6000,NVIDIA L40S,NVIDIA RTX 4090,NVIDIA RTX 6000 Ada Generation",
+    "allowedCudaVersions": [
+      "12.8", "12.7", "12.6", "12.5", "12.4",
+      "12.3", "12.2", "12.1", "12.0", "11.8"
+    ],
+
+    "presets": [
+      {
+        "name": "Full Layout Analysis",
+        "defaults": {
+          "PROMPT_MODE": "prompt_layout_all_en",
+          "TEMPERATURE": "0.1",
+          "MAX_TOKENS": "16384",
+          "NUM_THREADS": "64",
+          "DPI": "200"
+        }
+      },
+      {
+        "name": "Layout Detection Only",
+        "defaults": {
+          "PROMPT_MODE": "prompt_layout_only_en",
+          "TEMPERATURE": "0.1",
+          "MAX_TOKENS": "8192",
+          "NUM_THREADS": "32",
+          "DPI": "200"
+        }
+      },
+      {
+        "name": "Text Extraction Only",
+        "defaults": {
+          "PROMPT_MODE": "prompt_ocr",
+          "TEMPERATURE": "0.1",
+          "MAX_TOKENS": "8192",
+          "NUM_THREADS": "32",
+          "DPI": "200"
+        }
+      }
+    ],
+
+    "env": [
+      {
+        "key": "PROMPT_MODE",
+        "input": {
+          "name": "Parsing Mode",
+          "type": "string",
+          "description": "Select the type of document parsing to perform",
+          "options": [
+            {"label": "Full Layout Analysis", "value": "prompt_layout_all_en"},
+            {"label": "Layout Detection Only", "value": "prompt_layout_only_en"},
+            {"label": "Text Extraction Only", "value": "prompt_ocr"},
+            {"label": "Grounding OCR", "value": "prompt_grounding_ocr"}
+          ],
+          "default": "prompt_layout_all_en"
+        }
+      },
+      {
+        "key": "TEMPERATURE",
+        "input": {
+          "name": "Temperature",
+          "type": "number",
+          "description": "Controls randomness in model output (0.0 = deterministic, 1.0 = creative)",
+          "min": 0.0,
+          "max": 2.0,
+          "default": 0.1
+        }
+      },
+      {
+        "key": "TOP_P",
+        "input": {
+          "name": "Top P",
+          "type": "number",
+          "description": "Nucleus sampling parameter for token selection",
+          "min": 0.1,
+          "max": 1.0,
+          "default": 1.0,
+          "advanced": true
+        }
+      },
+      {
+        "key": "MAX_TOKENS",
+        "input": {
+          "name": "Max Completion Tokens",
+          "type": "number",
+          "description": "Maximum number of tokens to generate in response",
+          "min": 1024,
+          "max": 32768,
+          "default": 16384
+        }
+      },
+      {
+        "key": "NUM_THREADS",
+        "input": {
+          "name": "Number of Threads",
+          "type": "number",
+          "description": "Number of threads for processing (useful for PDFs)",
+          "min": 1,
+          "max": 128,
+          "default": 64
+        }
+      },
+      {
+        "key": "DPI",
+        "input": {
+          "name": "PDF DPI",
+          "type": "number",
+          "description": "DPI setting for PDF rendering (higher = better quality, slower processing)",
+          "min": 72,
+          "max": 600,
+          "default": 200
+        }
+      },
+      {
+        "key": "USE_HF",
+        "input": {
+          "type": "boolean",
+          "name": "Use HuggingFace Backend",
+          "description": "Use HuggingFace Transformers instead of vLLM (slower but more compatible)",
+          "default": false,
+          "trueValue": "true",
+          "falseValue": "false",
+          "advanced": true
+        }
+      },
+      {
+        "key": "MIN_PIXELS",
+        "input": {
+          "name": "Minimum Pixels",
+          "type": "number",
+          "description": "Minimum image resolution in pixels",
+          "min": 100000,
+          "max": 5000000,
+          "default": 256000,
+          "advanced": true
+        }
+      },
+      {
+        "key": "MAX_PIXELS",
+        "input": {
+          "name": "Maximum Pixels",
+          "type": "number",
+          "description": "Maximum image resolution in pixels (optimal under 11,289,600)",
+          "min": 1000000,
+          "max": 15000000,
+          "default": 11289600,
+          "advanced": true
+        }
+      },
+      {
+        "key": "MODEL_PATH",
+        "input": {
+          "name": "Model Path",
+          "type": "string",
+          "description": "Path to the DotsOCR model weights",
+          "default": "/weights/DotsOCR",
+          "advanced": true
+        }
+      }
+    ]
+  }
+}
