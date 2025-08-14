@@ -10,6 +10,7 @@ dots.ocr: Multilingual Document Layout Parsing in a Single Vision-Language Model
 
 [![Blog](https://img.shields.io/badge/Blog-View_on_GitHub-333.svg?logo=github)](https://github.com/rednote-hilab/dots.ocr/blob/master/assets/blog.md)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace%20Weights-black.svg?logo=HuggingFace)](https://huggingface.co/rednote-hilab/dots.ocr)
+[![RunPod](https://api.runpod.io/badge/surpent44/dots.ocr)](https://www.console.runpod.io/hub/surpent44/dots.ocr)
 
 
 <div align="center">

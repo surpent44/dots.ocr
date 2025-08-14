@@ -3,11 +3,11 @@
   "description": "A unified vision-language model for document layout detection and content recognition with state-of-the-art performance",
   "type": "serverless",
   "category": "image",
-  "iconUrl": "https://raw.githubusercontent.com/ucaslcl/dots.ocr/main/assets/logo.png",
+  "iconUrl": "https://raw.githubusercontent.com/surpent44/dots.ocr/master/assets/logo.png",
 
   "config": {
     "runsOn": "GPU",
-    "containerDiskInGb": 30,
+    "containerDiskInGb": 20,
 
     "gpuCount": 1,
     "gpuIds": "RTX A4000,RTX A5000,RTX A6000,NVIDIA L40S,NVIDIA RTX 4090,NVIDIA RTX 6000 Ada Generation",
